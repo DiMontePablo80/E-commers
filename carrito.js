@@ -1,147 +1,111 @@
 //variables globales
 
-let listaProductos = []
-let producto = ""
+
+class ControladorProducto {
+    constructor() {
+        this.listaProductos = []
+    }
+    agregar(producto) {
+        this.listaProductos.push(producto)
+    }
+    mostrarListaProductos() {
+        let contenedorProductos = document.getElementById("contenedor_productos")
+
+        this.listaProductos.forEach(elemento => {
+            contenedorProductos.innerHTML += `
+            <div class="card" style="width: 18rem;">
+                <img src=${elemento.img} class="card-img-top" alt="..."></img>
+                <div class="card-body">
+                    <h5 class="card-title">${elemento.nombre}</h5>
+                    <p class="card-text">${elemento.descripcion} </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">unidade disponibles ${elemento.stock}</li>
+                    <li class="list-group-item">$ ${elemento.precioUni}</li>
+                </ul>
+                <div class="card-body">
+                    <button id="ap-${elemento.id}" class="card-link">agregar al carrito </button>
+                    <button class="card-link">cerrar</button>
+                </div>
+            </div>`
+        })
+
+        this.listaProductos.forEach(elemento => {
+            let btn_ap = document.getElementById(`ap-${elemento.id}`)
+
+            btn_ap.addEventListener("clic", () => {
+                carrito.agregar(elemento)
+                carrito.mostrarListaCarrito()
+            })
+        })
+    }
+
+}
 
 //  clases
 class Producto {
-    constructor(id, nombre, cantidad, precio) {
+    constructor(id, nombre, descripcion, cantidad, precio, img) {
         this.id = id
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.stock = cantidad;
         this.precioUni = precio;
+        this.img = img;
         this.cantidad = 1;
         this.precioVenta = 0;
     }
 
 }
+
 class Carrito {
     constructor() {
-        this.iva = 1.21;
         this.listaDeCompras = [];
     }
-    agregar(producto, listaProducto) {
-        for (const objeto of listaProducto) {
-            if (objeto.nombre == producto) {
-                this.listaDeCompras.push(objeto);
-
-            }
-        }
-
-    }
-    comprarMas(listaProducto, producto, cantidadCompra) {
-        for (const elemento of listaProducto) {
-            if (elemento.nombre == producto) {
-                elemento.cantidad = cantidadCompra;
-                this.listaDeCompras.push(elemento)
-            }
-        }
-    }
-    controlStock() {
-        for (const objeto of this.listaDeCompras) {
-            objeto.stock = objeto.stock - objeto.cantidad;
-        }
-    }
-    sumarIva() {
-        this.listaDeCompras.forEach(producto => { producto.precioVenta = producto.precioUni * this.iva });
-
-    }
-    totalCompra() {
-        return this.listaDeCompras.reduce((acumulador, producto) => acumulador = acumulador + (producto.cantidad * producto.precioUni), 0)
-    }
-    mostrar() {
-
-        return this.listaDeCompras.reduce((acumulador, producto) => acumulador = acumulador + ("producto: \t" + producto.nombre + "  cantidad:  x\t " + producto.cantidad + "  precio: \t" + producto.precioVenta + "\n"), " ")
+    agregar(producto) {
+        this.listaDeCompras.push(producto)
     }
 
-}
-// funciones
-function mostrarListaProductos(listaProductos) {
-    let acumulador = "";
-    listaProductos.forEach((producto) => acumulador += "id: " + producto.id + "\tproducto: " + producto.nombre + "\tstock: " + producto.stock + "\t  cantidad: " + producto.cantidad + "  precio: \t" + producto.precioUni + "\n")
-    return acumulador;
-}
+    mostrarListaCarrito() {
+        let contenedorCarrito = document.getElementById("contenedor_carrito")
+        contenedorCarrito.innerHTML = " ";
+        this.listaDeCompras.forEach(producto => {
+            contenedorCarrito.innerHTML += `
+            <div class="card mb-3" style="max-width: 440px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="${producto.img}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">${producto.nombre}</h5>
+                            <p class="card-text">cantidad: ${producto.cantidad}</p>
+                            <p class="card-text"> precio: ${producto.precioUni}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        })
 
-function buscarProducto(listaProductos, seleccion) {
-    return listaProductos.some((producto) => producto.nombre == seleccion)
-}
-
-function creditoSantander(compra) {
-    let promo = 0.15;
-    let total = compra - (compra * promo)
-    return total
-}
-
-function creditoCencosud(compra) {
-    let promo = 0.10;
-    let total = compra - (compra * promo)
-    return total
+    }
 }
 
 // progrma principal
 
-listaProductos.push(producto = new Producto(1, "remera", 120, 3400));
-listaProductos.push(producto = new Producto(2, "pantalon", 200, 30400));
-listaProductos.push(producto = new Producto(3, "cinto", 30, 5000));
-listaProductos.push(producto = new Producto(4, "bermuda", 50, 10000));
-listaProductos.push(producto = new Producto(5, "campera", 10, 34000));
-
-
-alert(mostrarListaProductos(listaProductos))
-opcion = prompt("desea agregar un producto al carrito? ingese si o no");
-while (opcion != "si" && opcion != "no" && typeof(opcion) != String) {
-    opcion = prompt("desea agregar un producto al carrito? ingese si o no");
-}
+const cp = new ControladorProducto();
 let carrito = new Carrito();
-while (opcion == "si") {
 
-    let producto = prompt("ingrese nombre del producto: ")
-    let respuesta1 = buscarProducto(listaProductos, producto);
-    if (respuesta1 == true) {
-        let respuesta2 = prompt("desea agregar mas cantidad de " + producto + " ?.Ingrese si o no")
-        while (respuesta2 != "si" && respuesta2 != "no" && typeof(respuesta2) != String) {
-            respuesta2 = prompt("desea agregar mas unidades de " + producto + "?.Ingese si o no")
-
-        }
-        if (respuesta2 == "si") {
-            let cantidad = Number(prompt("cuantas unidades quiere agregar:"))
-            carrito.comprarMas(listaProductos, producto, cantidad)
-            alert("se añadio al carrito " + cantidad + " de " + producto)
-        } else if (respuesta2 == "no") {
-            carrito.agregar(producto, listaProductos)
-            alert("se agregó 1 unidad de " + producto + " al carrito")
-        }
-
-    } else if (respuesta1 == false) {
-        alert("el producto no se encuentra en la lista")
-    }
-    opcion = prompt("desea agregar un producto al carrito? ingese si o no")
-    while (opcion != "si" && opcion != "no" && typeof(opcion) != String) {
-        opcion = prompt("desea agregar un producto al carrito? ingese si o no")
-    }
-
-}
-alert("esta a punto de finalizar la compra. Estamos Preparando su pedido")
-carrito.sumarIva(carrito.listaDeCompras)
-alert(carrito.mostrar())
-let total = carrito.totalCompra(carrito.listaDeCompras)
-carrito.controlStock()
-let respuesta3 = Number(prompt("total a pagar es: $" + total + "\nseleccione metodo de pago:\n 1)debito\n  2)credito Santander( 15% off )\n 3) credito Cencosud (10% off) "))
-while (respuesta3 < 1 && respuesta3 > 3) {
-    respuesta3 = Number(prompt("seleccione metodo de pago: 1)debito  2)credito Santander( 15% off ) 3) credito Cencosud (10% off) "))
-}
-switch (respuesta3) {
-    case 1:
-        alert("el total de la compra es : $" + total + " \n Gracias por su compra!!");
-        break;
-    case 2:
-        total = creditoSantander(total)
-        alert("total con descuento del 15% por pago con tarjeta Santander: $ " + total + " \n Gracias por su compra!!");
-        break;
-    case 3:
-        total = creditoCencosud(total);
-        alert("total con descuento por pago con tarjeta Cencosud : $ " + total + " \n Gracias por su compra!!")
-        break;
-    default:
-        break;
-}
+let producto1 = new Producto(1, "jean kate", "De tiro bajo y extra largo, esta nueva base se suma a la colección para recrear una influencia dosmilera y destacada. Su tejido es super blando 100% algodón ", 100, 60000, "https://www.kosiuko.com/media/catalog/product/1/5/1510371142az5_1.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto2 = new Producto(2, "bota conwoy", "Botas Cowboy Style 100% de cuero vacuno, con bordado a contratono en los laterales y taco de 9cm. ", 50, 120000, "https://www.kosiuko.com/media/catalog/product/3/8/3895221102r12.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto3 = new Producto(3, "cinto lazoo", "Cinturon confeccionado en cuero 100% vacuno. Detalle de hebilla plateada con inspiracion texana.", 50, 43000, "https://www.kosiuko.com/media/catalog/product/3/8/3893071102ne2.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto4 = new Producto(4, "pantalon macro zebra", "Pantalón wide leg full print con estampa Macro zebra beat, exclusiva de la CURVA colección. Posee pinzas, bolsillos laterales y bolsillos ojal simulados en trasero.", 100, 56000, "https://www.kosiuko.com/media/catalog/product/3/8/3890181242al1.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto5 = new Producto(5, "jean kate west", "Este jean de tiro medio es el icono de nuestra capsula West. Este item es lo que necesitas para rockear el western style.", 100, 35000, "https://www.kosiuko.com/media/catalog/product/1/5/1510031142az1.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto6 = new Producto(6, "falda path", "La falda patch confeccionada con tejidos 100 % algodón azul, es un ítem trendy que realza mucho tu outfit llevandolo al máximo, ideal para matchearla con la “campera patch”.", 100, 25000, "https://www.kosiuko.com/media/catalog/product/1/5/1509341142az1_1.jpg?optimize=low&fit=bounds&height=215&width=160")
+let producto7 = new Producto(7, "camisaco", "Camisaco con inspiracion texana confeccionado en gabardina. Detalle de canesu en punta con diseño de cristales. ", 50, 130000, "https://www.kosiuko.com/media/catalog/product/3/8/3892061242cr1.jpg?optimize=low&fit=bounds&height=215&width=160")
+cp.agregar(producto1)
+cp.agregar(producto2)
+cp.agregar(producto3)
+cp.agregar(producto4)
+cp.agregar(producto5)
+cp.agregar(producto6)
+cp.agregar(producto7)
+cp.mostrarListaProductos()
