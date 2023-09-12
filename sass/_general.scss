@@ -1,7 +1,14 @@
 #contenedor_productos {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: baseline;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+}
+
+#compraTotal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
