@@ -151,7 +151,7 @@ class Carrito {
         this.eventoDisminuir()
         this.mostrarTotal()
         this.eventoEliminar()
-        this.vaciarCarrito() // no logro darme cuenta cual es la falla por la cual no se borra 
+        this.vaciarCarrito() 
     }
     eliminar(productoEliminar) {
         let indice = this.listaDeCompras.findIndex(producto => producto.id == productoEliminar.id)
@@ -190,7 +190,7 @@ class Carrito {
 
     vaciarCarrito() {
         let vaciarCarrito = document.getElementById(`btn_vaciarCarrito`)
-        vaciarCarrito.addEventListener("clic", () => {
+        vaciarCarrito.addEventListener("click", () => {
             this.listaDeCompras = []
             this.guardarEnStorage()
             this.mostrarListaCarrito()
@@ -199,7 +199,7 @@ class Carrito {
     }
 }
 
-// progrma principal
+// programa principal
 
 const cp = new ControladorProducto();
 let carrito = new Carrito();
