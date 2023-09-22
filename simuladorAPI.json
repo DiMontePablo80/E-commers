@@ -1,0 +1,57 @@
+[{
+        "id": 1,
+        "nombre": "jean kate",
+        "descripcion": "De tiro bajo y extra largo, esta nueva base se suma a la colección para recrear una influencia dosmilera y destacada. Su tejido es super blando 100% algodón ",
+        "stock": 100,
+        "precio": 60000,
+        "img": "https://www.kosiuko.com/media/catalog/product/1/5/1510371142az5_1.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 2,
+        "nombre": "bota conwoy",
+        "descripcion": "Botas Cowboy Style 100% de cuero vacuno, con bordado a contratono en los laterales y taco de 9cm. ",
+        "stock": 50,
+        "precio": 120000,
+        "img": "https://www.kosiuko.com/media/catalog/product/3/8/3895221102r12.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 3,
+        "nombre": "cinto lazoo",
+        "descripcion": "Cinturon confeccionado en cuero 100% vacuno. Detalle de hebilla plateada con inspiracion texana.",
+        "stock": 50,
+        "precio": 43000,
+        "img": "https://www.kosiuko.com/media/catalog/product/3/8/3893071102ne2.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 4,
+        "nombre": "pantalon macro zebra",
+        "descripcion": "Pantalón wide leg full print con estampa Macro zebra beat, exclusiva de la CURVA colección. Posee pinzas, bolsillos laterales y bolsillos ojal simulados en trasero.",
+        "stock": 100,
+        "precio": 56000,
+        "img": "https://www.kosiuko.com/media/catalog/product/3/8/3890181242al1.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 5,
+        "nombre": "jean kate west",
+        "descripcion": "Este jean de tiro medio es el icono de nuestra capsula West. Este item es lo que necesitas para rockear el western style.",
+        "stock": 100,
+        "precio": 35000,
+        "img": "https://www.kosiuko.com/media/catalog/product/1/5/1510031142az1.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 6,
+        "nombre": "falda path",
+        "descripcion": "La falda patch confeccionada con tejidos 100 % algodón azul, es un ítem trendy que realza mucho tu outfit llevandolo al máximo, ideal para matchearla con la “campera patch”.",
+        "stock": 100,
+        "precio": 25000,
+        "img": "https://www.kosiuko.com/media/catalog/product/1/5/1509341142az1_1.jpg?optimize=low&fit=bounds&height=215&width=160"
+    },
+    {
+        "id": 7,
+        "nombre": "camisaco",
+        "descripcion": "Camisaco con inspiracion texana confeccionado en gabardina. Detalle de canesu en punta con diseño de cristales. ",
+        "stock": 5,
+        "precio": 130000,
+        "img": "https://www.kosiuko.com/media/catalog/product/3/8/3892061242cr1.jpg?optimize=low&fit=bounds&height=215&width=160"
+    }
+]
