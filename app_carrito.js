@@ -88,6 +88,7 @@ class Producto {
 class Carrito {
     constructor() {
         this.listaDeCompras = [];
+        this.localStorageKey = "listaDeCompras"
     }
     agregar(productoAgregar) {
         let enlista = this.listaDeCompras.some(prod => prod.id == productoAgregar.id)
@@ -141,6 +142,17 @@ class Carrito {
     calcularTotal() {
         return this.listaDeCompras.reduce((acumulador, producto) => acumulador + producto.precioUni * producto.cantidad, 0)
     }
+    finalizarCompra() {
+        let btn_fc = document.getElementById(`finalizarCompra`)
+        btn_fc.addEventListener("click", () => {
+            if (this.listaDeCompras.length == 0) {
+                swal("debes ingresar productos al carrito");
+                this.mostrarListaCarrito()
+            }
+
+        })
+
+    }
     mostrarListaCarrito() {
         let contenedorCarrito = document.getElementById("contenedor_carrito")
         contenedorCarrito.innerHTML = ""
@@ -152,6 +164,8 @@ class Carrito {
         this.mostrarTotal()
         this.eventoEliminar()
         this.vaciarCarrito()
+        this.finalizarCompra()
+
     }
     eliminar(productoEliminar) {
         let indice = this.listaDeCompras.findIndex(producto => producto.id == productoEliminar.id)
@@ -213,11 +227,8 @@ class Carrito {
                             swal("se vacio en carrito correctamente", {
                                 icon: "success",
                             })
-
-
                         }
                     })
-
             } else {
 
                 Toastify({
