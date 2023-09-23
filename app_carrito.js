@@ -197,8 +197,7 @@ class Carrito {
         localStorage.setItem("listaDeCompras", listaDeComprasJSON)
     }
     recuperarStorage() {
-        let listaDeComprasJSON = localStorage.getItem("listaDeCompras")
-        let listaDeComprasJS = JSON.parse(listaDeComprasJSON)
+        let listaDeComprasJS = JSON.parse( localStorage.getItem("listaDeCompras"))
         let listaAux = []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
