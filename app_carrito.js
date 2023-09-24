@@ -3,13 +3,66 @@
 class ControladorProducto {
     constructor() {
         this.listaProductos = []
+        this.listaFiltrada = []
     }
     agregar(producto) {
         if (producto instanceof Producto) {
             this.listaProductos.push(producto)
         }
     }
-    async incorporarAPIyMostrar() {
+    eventoFiltrar() {
+        this.ordenarMenorAMayor()
+        this.ordenarMayorAMenor()
+        this.mostrarTodo()
+    }
+    ordenarMenorAMayor() {
+        this.listaFiltrada = []
+        const opcion_may_men = document.getElementById("may_men")
+        opcion_may_men.addEventListener("click", () => {
+            this.listaFiltrada = this.listaProductos.sort(function(a, b) {
+                if (a.precioUni > b.precioUni) {
+                    return -1
+                }
+                if (a.precioUni < b.precioUni) {
+                    return 1
+                }
+                return 0
+            })
+            this.mostrarListafiltrada()
+
+        })
+
+
+    }
+    ordenarMayorAMenor() {
+        this.listaFiltrada = []
+        const opcion_men_may = document.getElementById("men_may")
+        opcion_men_may.addEventListener("click", () => {
+            this.listaFiltrada = this.listaProductos.sort(function(a, b) {
+                if (a.precioUni > b.precioUni) {
+                    return 1
+                }
+                if (a.precioUni < b.precioUni) {
+                    return -1
+                }
+                return 0
+            })
+            this.mostrarListafiltrada()
+        })
+
+
+    }
+    mostrarTodo() {
+
+        const opcion_MostrarTodo = document.getElementById("abc")
+        opcion_MostrarTodo.addEventListener("click", () => {
+            this.listaProductos = []
+            this.incorporarAPI()
+
+        })
+
+    }
+    async incorporarAPI() {
         let respJson = await fetch(`simuladorAPI.json`)
         let listaJS = await respJson.json()
         listaJS.forEach(elemento => {
@@ -17,6 +70,8 @@ class ControladorProducto {
             this.agregar(nuevoProducto)
         })
         this.mostrarListaProductos()
+
+
     }
     mostrarListaProductos() {
         let contenedor_productos = document.getElementById("contenedor_productos")
@@ -29,11 +84,32 @@ class ControladorProducto {
             btn_ap.addEventListener("click", () => {
                 Toastify({
                     text: "añadiendo...",
-                    duration: 3000
+                    duration: 2000
                 }).showToast();
                 carrito.agregar(producto)
                 carrito.guardarEnStorage()
                 carrito.mostrarListaCarrito()
+
+            })
+        })
+    }
+    mostrarListafiltrada() {
+        let contenedor_productos = document.getElementById("contenedor_productos")
+        contenedor_productos.innerHTML = ""
+        this.listaFiltrada.forEach(producto => {
+            contenedor_productos.innerHTML += producto.descripcionProducto()
+        })
+        this.listaProductos.forEach(producto => {
+            const btn_ap = document.getElementById(`ap-${producto.id}`)
+            btn_ap.addEventListener("click", () => {
+                Toastify({
+                    text: "añadiendo...",
+                    duration: 2000
+                }).showToast();
+                carrito.agregar(producto)
+                carrito.guardarEnStorage()
+                carrito.mostrarListaCarrito()
+
             })
         })
     }
@@ -150,6 +226,9 @@ class Carrito {
                 this.mostrarListaCarrito()
             }
 
+
+
+
         })
 
     }
@@ -197,8 +276,8 @@ class Carrito {
         localStorage.setItem("listaDeCompras", listaDeComprasJSON)
     }
     recuperarStorage() {
-        let listaDeComprasJSON = localStorage.getItem("listaDeCompras")
-        let listaDeComprasJS = JSON.parse(listaDeComprasJSON)
+
+        let listaDeComprasJS = JSON.parse(localStorage.getItem("listaDeCompras")) || []
         let listaAux = []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
@@ -224,7 +303,7 @@ class Carrito {
                             this.listaDeCompras = []
                             this.guardarEnStorage()
                             this.mostrarListaCarrito()
-                            swal("se vacio en carrito correctamente", {
+                            swal("se vacio el carrito correctamente", {
                                 icon: "success",
                             })
                         }
@@ -251,4 +330,5 @@ let carrito = new Carrito();
 carrito.recuperarStorage()
 carrito.mostrarListaCarrito()
 
-cp.incorporarAPIyMostrar()
+cp.incorporarAPI()
+cp.eventoFiltrar()

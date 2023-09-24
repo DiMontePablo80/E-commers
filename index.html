@@ -53,8 +53,22 @@
         </nav>
     </header>
     <main>
-        <section id="contenedor_productos">
+        <section id="busqueda">
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Ordenar:
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button id="may_men" class="dropdown-item" href="#">de mayor a menor precio</button></li>
+                        <li><button id="men_may" class="dropdown-item" href="#">de menor a mayor precio </button></li>
+                        <li><button id="abc" class="dropdown-item" href="#">por nombre de la A -Z</button></li>
 
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="contenedor_productos">
         </section>
     </main>
     <!-- Modal carrito-->
