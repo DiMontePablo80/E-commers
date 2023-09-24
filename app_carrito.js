@@ -275,13 +275,11 @@ class Carrito {
         let listaDeComprasJSON = JSON.stringify(this.listaDeCompras)
         localStorage.setItem("listaDeCompras", listaDeComprasJSON)
     }
-    recuperarStorage() {
-<<<<<<< HEAD
+    recuperarStorage() 
 
         let listaDeComprasJS = JSON.parse(localStorage.getItem("listaDeCompras")) || []
-=======
         let listaDeComprasJS = JSON.parse( localStorage.getItem("listaDeCompras"))
->>>>>>> 31d9596693df8d05d1c40558c0810b2420d401e3
+
         let listaAux = []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
@@ -334,9 +332,7 @@ let carrito = new Carrito();
 carrito.recuperarStorage()
 carrito.mostrarListaCarrito()
 
-<<<<<<< HEAD
 cp.incorporarAPI()
 cp.eventoFiltrar()
-=======
 cp.incorporarAPIyMostrar()
->>>>>>> 31d9596693df8d05d1c40558c0810b2420d401e3
+
