@@ -279,7 +279,6 @@ class Carrito {
 
         let listaDeComprasJS = JSON.parse(localStorage.getItem("listaDeCompras")) || []
         let listaDeComprasJS = JSON.parse( localStorage.getItem("listaDeCompras"))
-
         let listaAux = []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
@@ -334,5 +333,4 @@ carrito.mostrarListaCarrito()
 
 cp.incorporarAPI()
 cp.eventoFiltrar()
-cp.incorporarAPIyMostrar()
 
