@@ -330,8 +330,4 @@ carrito.recuperarStorage()
 carrito.mostrarListaCarrito()
 
 cp.incorporarAPI()
-<<<<<<< HEAD
 cp.eventoFiltrar()
-=======
-cp.eventoFiltrar()
->>>>>>> adb4710529b44da4fb96afa3b54b0625b9fed820
