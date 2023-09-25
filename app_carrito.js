@@ -331,7 +331,3 @@ carrito.mostrarListaCarrito()
 
 cp.incorporarAPI()
 cp.eventoFiltrar()
-cp.incorporarAPI()
-cp.eventoFiltrar()
-cp.incorporarAPI()
-cp.eventoFiltrar()
