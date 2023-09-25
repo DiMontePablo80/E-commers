@@ -1,4 +1,50 @@
 //  clases
+class Producto {
+    constructor(id, nombre, descripcion, stock, precio, img, cantidad = 1) {
+        this.id = id
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.precioUni = precio;
+        this.img = img;
+        this.cantidad = cantidad;
+        this.precioVenta = 0;
+    }
+    descripcionProducto() {
+        return `
+        <div class="card border-light" style="width: 18rem;">
+            <img src="${this.img}" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">${this.nombre}</h5>
+                <p class="card-text">${this.descripcion}</p>
+                <p class="card-text">$${this.precioUni}</p>
+                <button class="btn btn-primary" id="ap-${this.id}">Añadir al carrito</button>
+            </div>
+        </div>`
+    }
+    descripcionCarrito() {
+        return `
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="${this.img}" class="img-fluid rounded-start" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${this.nombre}</h5>
+                        <p class="card-text">Cantidad  <button class"btn-primary id="btn_disminuir-${this.id}"><i class="fa-solid fa-minus"></i></button>  ${this.cantidad}  <button class"btn-primary id="btn_aumentar-${this.id}"><i class="fa-solid fa-plus"></i></button></p>
+                        <p class="card-text">Precio: ${this.precioUni}</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary" id="btn_eliminar-${this.id}"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    }
+
+
+}
 
 class ControladorProducto {
     constructor() {
@@ -113,52 +159,6 @@ class ControladorProducto {
             })
         })
     }
-}
-class Producto {
-    constructor(id, nombre, descripcion, stock, precio, img, cantidad = 1) {
-        this.id = id
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.stock = stock;
-        this.precioUni = precio;
-        this.img = img;
-        this.cantidad = cantidad;
-        this.precioVenta = 0;
-    }
-    descripcionProducto() {
-        return `
-        <div class="card border-light" style="width: 18rem;">
-            <img src="${this.img}" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title">${this.nombre}</h5>
-                <p class="card-text">${this.descripcion}</p>
-                <p class="card-text">$${this.precioUni}</p>
-                <button class="btn btn-primary" id="ap-${this.id}">Añadir al carrito</button>
-            </div>
-        </div>`
-    }
-    descripcionCarrito() {
-        return `
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="${this.img}" class="img-fluid rounded-start" alt="">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">${this.nombre}</h5>
-                        <p class="card-text">Cantidad  <button class"btn-primary id="btn_disminuir-${this.id}"><i class="fa-solid fa-minus"></i></button>  ${this.cantidad}  <button class"btn-primary id="btn_aumentar-${this.id}"><i class="fa-solid fa-plus"></i></button></p>
-                        <p class="card-text">Precio: ${this.precioUni}</p>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" id="btn_eliminar-${this.id}"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>`
-    }
-
-
 }
 
 class Carrito {
@@ -276,18 +276,12 @@ class Carrito {
         localStorage.setItem("listaDeCompras", listaDeComprasJSON)
     }
     recuperarStorage() {
-<<<<<<< HEAD
-
         let listaDeComprasJS = JSON.parse(localStorage.getItem("listaDeCompras")) || []
-=======
-        let listaDeComprasJS = JSON.parse( localStorage.getItem("listaDeCompras"))
->>>>>>> 31d9596693df8d05d1c40558c0810b2420d401e3
-        let listaAux = []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
-            listaAux.push(nuevoProducto)
+            listaDeComprasJS.push(nuevoProducto)
         })
-        this.listaDeCompras = listaAux
+
     }
 
     vaciarCarrito() {
@@ -334,9 +328,5 @@ let carrito = new Carrito();
 carrito.recuperarStorage()
 carrito.mostrarListaCarrito()
 
-<<<<<<< HEAD
 cp.incorporarAPI()
 cp.eventoFiltrar()
-=======
-cp.incorporarAPIyMostrar()
->>>>>>> 31d9596693df8d05d1c40558c0810b2420d401e3
