@@ -141,6 +141,7 @@ class ControladorProducto {
 
 
     }
+
     mostrarListaProductos() {
         let contenedor_productos = document.getElementById("contenedor_productos")
         contenedor_productos.innerHTML = ""
@@ -152,6 +153,7 @@ class ControladorProducto {
             btn_ap.addEventListener("click", () => {
                 Toastify({
                     text: `¡ ${producto.nombre} añadido !`,
+                    position: `center`,
                     avatar: `${producto.img}`,
                     duration: 2000
                 }).showToast();
@@ -173,6 +175,7 @@ class ControladorProducto {
             btn_ap.addEventListener("click", () => {
                 Toastify({
                     text: `¡ ${producto.nombre} añadido!`,
+                    position: `center`,
                     avatar: `${producto.img}`,
                     duration: 2000
                 }).showToast();
