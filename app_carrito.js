@@ -59,6 +59,7 @@ class ControladorProducto {
     eventoFiltrar() {
         this.ordenarMenorAMayor()
         this.ordenarMayorAMenor()
+        this.ordenarDeA_Z()
         this.mostrarTodo()
     }
     ordenarMenorAMayor() {
@@ -74,6 +75,7 @@ class ControladorProducto {
                 }
                 return 0
             })
+
             this.mostrarListafiltrada()
 
         })
@@ -93,6 +95,7 @@ class ControladorProducto {
                 }
                 return 0
             })
+
             this.mostrarListafiltrada()
         })
 
@@ -106,6 +109,25 @@ class ControladorProducto {
             this.incorporarAPI()
 
         })
+
+    }
+    ordenarDeA_Z() {
+        this.listaFiltrada = []
+        const opcion_may_men = document.getElementById("a-z")
+        opcion_may_men.addEventListener("click", () => {
+            this.listaFiltrada = this.listaProductos.sort(function(a, b) {
+                if (a.nombre > b.nombre) {
+                    return 1
+                }
+                if (a.nombre < b.nombre) {
+                    return -1
+                }
+                return 0
+            })
+            this.mostrarListafiltrada()
+
+        })
+
 
     }
     async incorporarAPI() {
@@ -129,7 +151,8 @@ class ControladorProducto {
             const btn_ap = document.getElementById(`ap-${producto.id}`)
             btn_ap.addEventListener("click", () => {
                 Toastify({
-                    text: "añadiendo...",
+                    text: `¡ ${producto.nombre} añadido !`,
+                    avatar: `${producto.img}`,
                     duration: 2000
                 }).showToast();
                 carrito.agregar(producto)
@@ -149,7 +172,8 @@ class ControladorProducto {
             const btn_ap = document.getElementById(`ap-${producto.id}`)
             btn_ap.addEventListener("click", () => {
                 Toastify({
-                    text: "añadiendo...",
+                    text: `¡ ${producto.nombre} añadido!`,
+                    avatar: `${producto.img}`,
                     duration: 2000
                 }).showToast();
                 carrito.agregar(producto)
@@ -164,7 +188,6 @@ class ControladorProducto {
 class Carrito {
     constructor() {
         this.listaDeCompras = [];
-        this.localStorageKey = "listaDeCompras"
     }
     agregar(productoAgregar) {
         let enlista = this.listaDeCompras.some(prod => prod.id == productoAgregar.id)
@@ -280,7 +303,7 @@ class Carrito {
         let listaDeComprasJS = JSON.parse(localStorage.getItem("listaDeCompras")) || []
         listaDeComprasJS.forEach(producto => {
             let nuevoProducto = new Producto(producto.id, producto.nombre, producto.descripcion, producto.stock, producto.precioUni, producto.img, producto.cantidad, producto.precioVenta)
-            listaDeComprasJS.push(nuevoProducto)
+            this.listaDeCompras.push(nuevoProducto)
         })
 
     }
@@ -330,8 +353,4 @@ carrito.recuperarStorage()
 carrito.mostrarListaCarrito()
 
 cp.incorporarAPI()
-<<<<<<< HEAD
 cp.eventoFiltrar()
-=======
-cp.eventoFiltrar()
->>>>>>> adb4710529b44da4fb96afa3b54b0625b9fed820
