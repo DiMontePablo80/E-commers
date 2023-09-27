@@ -33,8 +33,8 @@ class Producto {
                     <div class="card-body">
                         <h5 class="card-title">${this.nombre}</h5>
                         <p class="card-text">Cantidad  <button class"btn-primary id="btn_disminuir-${this.id}"><i class="fa-solid fa-minus"></i></button>  ${this.cantidad}  <button class"btn-primary id="btn_aumentar-${this.id}"><i class="fa-solid fa-plus"></i></button></p>
-                        <p class="card-text">Precio: ${this.precioUni}</p>
-                        <p class="card-text">Precio: ${this.stock}</p>
+                        <p class="card-text">Precio : ${this.precioUni}</p>
+                        <p class="card-text">Stock : ${this.stock}</p>
                     </div>
                     <div>
                         <button class="btn btn-secondary" id="btn_eliminar-${this.id}"><i class="fa-solid fa-trash"></i></button>
