@@ -34,6 +34,7 @@ class Producto {
                         <h5 class="card-title">${this.nombre}</h5>
                         <p class="card-text">Cantidad  <button class"btn-primary id="btn_disminuir-${this.id}"><i class="fa-solid fa-minus"></i></button>  ${this.cantidad}  <button class"btn-primary id="btn_aumentar-${this.id}"><i class="fa-solid fa-plus"></i></button></p>
                         <p class="card-text">Precio: ${this.precioUni}</p>
+                        <p class="card-text">Precio: ${this.stock}</p>
                     </div>
                     <div>
                         <button class="btn btn-secondary" id="btn_eliminar-${this.id}"><i class="fa-solid fa-trash"></i></button>
@@ -314,11 +315,10 @@ class Carrito {
     vaciarCarrito() {
         let vaciarCarrito = document.getElementById(`btn_vaciarCarrito`)
         vaciarCarrito.addEventListener("click", () => {
-
             if (this.listaDeCompras.length > 0) {
                 swal({
-                        title: "Estas seguro ?",
-                        text: "Estas a punto de vaciar el carrito",
+                        title: "¿ Seguro ?",
+                        text: "¡ estas a punto de vaciar el carrito!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -326,19 +326,20 @@ class Carrito {
                     .then((willDelete) => {
                         if (willDelete) {
                             this.listaDeCompras = []
+                            this.calcularTotal()
                             this.guardarEnStorage()
                             this.mostrarListaCarrito()
-                            swal("se vacio el carrito correctamente", {
+                            swal("¡ el carrito se vació correctamente !", {
                                 icon: "success",
-                            })
+                            });
+                        } else {
+                            swal("Los productos permanecerán en el carrito!");
                         }
-                    })
-            } else {
+                    });
 
-                Toastify({
-                    text: "no hay productos en el carrito",
-                    duration: 2000
-                }).showToast();
+
+            } else {
+                swal("¡ Upss.! ", " ...¡ No hay productos en el carrito ! ")
             }
 
 
